@@ -6,8 +6,8 @@ var define_ROUTES_default = {
 };
 
 // node_modules/wrangler/templates/pages-dev-pipeline.ts
-import worker from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-iMZbW0/functionsWorker-0.3554352892133592.mjs";
-export * from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-iMZbW0/functionsWorker-0.3554352892133592.mjs";
+import worker from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-gbfC2P/functionsWorker-0.8169512161817936.mjs";
+export * from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-gbfC2P/functionsWorker-0.8169512161817936.mjs";
 import { isRoutingRuleMatch } from "/workspaces/codespaces-blank/shop-remix/node_modules/wrangler/templates/pages-dev-util.ts";
 var routes = define_ROUTES_default;
 var pages_dev_pipeline_default = {
@@ -32,4 +32,4 @@ var pages_dev_pipeline_default = {
 export {
   pages_dev_pipeline_default as default
 };
-//# sourceMappingURL=8mmjljpdugq.js.map
+//# sourceMappingURL=5f656rz0j4c.js.map

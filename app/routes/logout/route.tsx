@@ -7,7 +7,8 @@ import {
 
 export async function action({ request, context }: ActionFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
-  if (!session.has("id_token")) {
+  console.log("logout session", session.has("access_token"));
+  if (!session.has("access_token")) {
     return redirect("/");
   }
 
@@ -23,6 +24,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
     "post_logout_redirect_uri",
     context.env.LOGOUT_REDIRECT_URI
   );
+  console.log("logout url", context.env.LOGOUT_REDIRECT_URI);
   return redirect(url.toString(), {
     headers: {
       "Set-Cookie": await destroySession(session),

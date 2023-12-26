@@ -20,7 +20,7 @@ function __facade_invoke__(request, env, ctx, dispatch, finalMiddleware) {
   ]);
 }
 
-// .wrangler/tmp/pages-iMZbW0/functionsWorker-0.3554352892133592.mjs
+// .wrangler/tmp/pages-gbfC2P/functionsWorker-0.8169512161817936.mjs
 var __create = Object.create;
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
@@ -30568,20 +30568,37 @@ __export(index_exports, {
   loader: () => loader,
   meta: () => meta
 });
+var import_cloudflare3 = __toESM(require_dist(), 1);
 var import_cloudflare2 = __toESM(require_dist(), 1);
+var { getSession, commitSession, destroySession } = (0, import_cloudflare2.createCookieSessionStorage)({
+  cookie: {
+    name: "__session",
+    domain: "cloudcreatr.com",
+    httpOnly: true,
+    maxAge: 7200,
+    path: "/",
+    sameSite: "lax",
+    secrets: [
+      "c32ba072c91c4a85c0ab982ed9cab0fc133e552e606aeee6c93d98d8a583f28a"
+    ],
+    secure: true
+  }
+});
 var import_jsx_dev_runtime3 = __toESM(require_jsx_dev_runtime(), 1);
 var meta = () => [
   { title: "New Remix App" },
   { name: "description", content: "Welcome to Remix!" }
 ];
-async function loader({ context }) {
-  return console.log("bro0", context.env.om), (0, import_cloudflare2.json)({ hello: "world" });
+async function loader({ context, request }) {
+  let session = await getSession(request.headers.get("Cookie"));
+  return (0, import_cloudflare3.json)({ accesstoken: session.get("access_token") });
 }
 function Index() {
+  let { accesstoken } = useLoaderData2();
   return /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("div", { style: { fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }, children: [
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("h1", { children: "Welcome to Remix" }, void 0, false, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 19,
+      lineNumber: 21,
       columnNumber: 7
     }, this),
     /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("ul", { children: [
@@ -30597,13 +30614,13 @@ function Index() {
         false,
         {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 22,
+          lineNumber: 24,
           columnNumber: 11
         },
         this
       ) }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 21,
+        lineNumber: 23,
         columnNumber: 9
       }, this),
       /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("li", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)(
@@ -30618,32 +30635,42 @@ function Index() {
         false,
         {
           fileName: "app/routes/_index.tsx",
-          lineNumber: 31,
+          lineNumber: 33,
           columnNumber: 11
         },
         this
       ) }, void 0, false, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 30,
+        lineNumber: 32,
         columnNumber: 9
       }, this),
-      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("li", { children: /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { target: "_blank", href: "https://remix.run/docs", rel: "noreferrer", children: "Remix Docs" }, void 0, false, {
+      /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("li", { children: [
+        /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("a", { target: "_blank", href: "https://remix.run/docs", rel: "noreferrer", children: "Remix Docs" }, void 0, false, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 42,
+          columnNumber: 11
+        }, this),
+        /* @__PURE__ */ (0, import_jsx_dev_runtime3.jsxDEV)("p", { children: [
+          " ",
+          accesstoken
+        ] }, void 0, true, {
+          fileName: "app/routes/_index.tsx",
+          lineNumber: 45,
+          columnNumber: 11
+        }, this)
+      ] }, void 0, true, {
         fileName: "app/routes/_index.tsx",
-        lineNumber: 40,
-        columnNumber: 11
-      }, this) }, void 0, false, {
-        fileName: "app/routes/_index.tsx",
-        lineNumber: 39,
+        lineNumber: 41,
         columnNumber: 9
       }, this)
     ] }, void 0, true, {
       fileName: "app/routes/_index.tsx",
-      lineNumber: 20,
+      lineNumber: 22,
       columnNumber: 7
     }, this)
   ] }, void 0, true, {
     fileName: "app/routes/_index.tsx",
-    lineNumber: 18,
+    lineNumber: 20,
     columnNumber: 5
   }, this);
 }
@@ -30652,24 +30679,9 @@ __export(route_exports, {
   action: () => action
 });
 var import_cloudflare4 = __toESM(require_dist(), 1);
-var import_cloudflare3 = __toESM(require_dist(), 1);
-var { getSession, commitSession, destroySession } = (0, import_cloudflare3.createCookieSessionStorage)({
-  cookie: {
-    name: "__session",
-    domain: "cloudcreatr.com",
-    httpOnly: true,
-    maxAge: 7200,
-    path: "/",
-    sameSite: "lax",
-    secrets: [
-      "c32ba072c91c4a85c0ab982ed9cab0fc133e552e606aeee6c93d98d8a583f28a"
-    ],
-    secure: true
-  }
-});
 async function action({ request, context }) {
   let session = await getSession(request.headers.get("Cookie"));
-  if (!session.has("id_token"))
+  if (console.log("logout session", session.has("access_token")), !session.has("access_token"))
     return (0, import_cloudflare4.redirect)("/");
   let id_token = session.get("id_token");
   session.unset("id_token"), session.unset("access_token");
@@ -30679,7 +30691,7 @@ async function action({ request, context }) {
   return url.searchParams.set("id_token_hint", id_token), url.searchParams.set(
     "post_logout_redirect_uri",
     context.env.LOGOUT_REDIRECT_URI
-  ), (0, import_cloudflare4.redirect)(url.toString(), {
+  ), console.log("logout url", context.env.LOGOUT_REDIRECT_URI), (0, import_cloudflare4.redirect)(url.toString(), {
     headers: {
       "Set-Cookie": await destroySession(session)
     }
@@ -30899,7 +30911,7 @@ async function loader3({ request, context }) {
     }
   });
 }
-var assets_manifest_default = { entry: { module: "/build/entry.client-KORZQACA.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-RVDDVGJO.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-WTIKFQWP.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-NOM4CGE6.js", imports: void 0, hasAction: false, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: true, caseSensitive: void 0, module: "/build/routes/_index-GDXQG7E4.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/auth": { id: "routes/auth", parentId: "root", path: "auth", index: void 0, caseSensitive: void 0, module: "/build/routes/auth-3MDGLKS7.js", imports: void 0, hasAction: true, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-FQIRP3Y3.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GD74PKF2.js", imports: void 0, hasAction: true, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false } }, version: "8574ac66", hmr: { runtime: "/build/_shared/chunk-WTIKFQWP.js", timestamp: 1703603477342 }, url: "/build/manifest-8574AC66.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-7RRM6Q44.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-3G6A5XQW.js", "/build/_shared/chunk-WTIKFQWP.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-2MIKKASS.js", imports: void 0, hasAction: false, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: true, caseSensitive: void 0, module: "/build/routes/_index-6DXARXNL.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/auth": { id: "routes/auth", parentId: "root", path: "auth", index: void 0, caseSensitive: void 0, module: "/build/routes/auth-3MDGLKS7.js", imports: void 0, hasAction: true, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-GSUHTZT3.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GD74PKF2.js", imports: void 0, hasAction: true, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false } }, version: "b64aef80", hmr: { runtime: "/build/_shared/chunk-WTIKFQWP.js", timestamp: 1703605274191 }, url: "/build/manifest-B64AEF80.js" };
 var mode = "development";
 var assetsBuildDirectory = "public/build";
 var future = { v3_fetcherPersist: false, v3_relativeSplatPath: false };
@@ -31540,7 +31552,7 @@ function transformRoutingRuleToRegExp(rule) {
   return new RegExp(transformedRule);
 }
 
-// .wrangler/tmp/pages-iMZbW0/8mmjljpdugq.js
+// .wrangler/tmp/pages-gbfC2P/5f656rz0j4c.js
 var define_ROUTES_default = {
   version: 1,
   include: ["/*"],
@@ -31590,7 +31602,7 @@ var jsonError2 = async (request, env, _ctx, middlewareCtx) => {
 var middleware_miniflare3_json_error_default2 = jsonError2;
 var wrap2 = void 0;
 
-// .wrangler/tmp/bundle-Ft0sk0/middleware-insertion-facade.js
+// .wrangler/tmp/bundle-pQ5WbN/middleware-insertion-facade.js
 var envWrappers2 = [wrap2].filter(Boolean);
 var facade3 = {
   ...pages_dev_pipeline_default,
@@ -31602,7 +31614,7 @@ var facade3 = {
 };
 var middleware_insertion_facade_default2 = facade3;
 
-// .wrangler/tmp/bundle-Ft0sk0/middleware-loader.entry.ts
+// .wrangler/tmp/bundle-pQ5WbN/middleware-loader.entry.ts
 var __Facade_ScheduledController__2 = class {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
@@ -32295,4 +32307,4 @@ react/cjs/react-jsx-dev-runtime.development.js:
    * @license MIT
    *)
 */
-//# sourceMappingURL=8mmjljpdugq.js.map
+//# sourceMappingURL=5f656rz0j4c.js.map

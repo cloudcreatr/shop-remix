@@ -1,4 +1,4 @@
-				import worker, * as OTHER_EXPORTS from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-iMZbW0/8mmjljpdugq.js";
+				import worker, * as OTHER_EXPORTS from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-gbfC2P/5f656rz0j4c.js";
 				import * as __MIDDLEWARE_0__ from "/workspaces/codespaces-blank/shop-remix/node_modules/wrangler/templates/middleware/middleware-miniflare3-json-error.ts";
 				const envWrappers = [__MIDDLEWARE_0__.wrap].filter(Boolean);
 				const facade = {
@@ -9,7 +9,7 @@
             ...(worker.middleware ? worker.middleware : []),
 					].filter(Boolean)
 				}
-				export * from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-iMZbW0/8mmjljpdugq.js";
+				export * from "/workspaces/codespaces-blank/shop-remix/.wrangler/tmp/pages-gbfC2P/5f656rz0j4c.js";
 
 				const maskDurableObjectDefinition = (cls) =>
 					class extends cls {
