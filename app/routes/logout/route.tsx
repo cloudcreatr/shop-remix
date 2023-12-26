@@ -1,7 +1,11 @@
 import { ActionFunctionArgs, redirect } from "@remix-run/cloudflare";
-import { getSession, commitSession } from "../auth/session.server";
+import {
+  getSession,
+  commitSession,
+  destroySession,
+} from "../auth/session.server";
 
-export default async function ({ request, context }: ActionFunctionArgs) {
+export async function action({ request, context }: ActionFunctionArgs) {
   const session = await getSession(request.headers.get("Cookie"));
   if (!session.has("id_token")) {
     return redirect("/");
@@ -21,7 +25,7 @@ export default async function ({ request, context }: ActionFunctionArgs) {
   );
   return redirect(url.toString(), {
     headers: {
-      "Set-Cookie": await commitSession(session),
+      "Set-Cookie": await destroySession(session),
     },
   });
 }
