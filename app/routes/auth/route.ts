@@ -12,6 +12,7 @@ type env = {
   CLIENT_ID: string;
   CLIENT_SECRET: string;
   STORE_ID: string;
+  REDIRECT_URI: string;
   LOGOUT_REDIRECT_URI: string;
 };
 
@@ -21,7 +22,7 @@ export async function action({ request, context }: ActionFunctionArgs) {
     CLIENT_ID: env.CLIENT_ID,
     SHOP_ID: env.STORE_ID,
     request,
-    REDIRECT_URL: env.LOGOUT_REDIRECT_URI,
+    REDIRECT_URL: env.REDIRECT_URI,
   });
 }
 
@@ -42,7 +43,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     clientId: env.CLIENT_ID,
     clientSecret: env.CLIENT_SECRET,
     STORE_ID: env.STORE_ID,
-    REDIRECT_URL: env.LOGOUT_REDIRECT_URI,
+    REDIRECT_URL: env.REDIRECT_URI,
   });
 
   let { access_token } = await TokenExchange({
@@ -50,7 +51,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
     clientId: env.CLIENT_ID,
     clientSecret: env.CLIENT_SECRET,
     STORE_ID: env.STORE_ID,
-    REDIRECT_URL: env.LOGOUT_REDIRECT_URI,
+    REDIRECT_URL: env.REDIRECT_URI,
   });
 
   session.set("access_token", access_token);

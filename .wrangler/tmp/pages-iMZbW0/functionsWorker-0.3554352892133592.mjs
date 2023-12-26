@@ -30847,7 +30847,7 @@ async function action2({ request, context }) {
     CLIENT_ID: env.CLIENT_ID,
     SHOP_ID: env.STORE_ID,
     request,
-    REDIRECT_URL: env.LOGOUT_REDIRECT_URI
+    REDIRECT_URL: env.REDIRECT_URI
   });
 }
 async function loader3({ request, context }) {
@@ -30863,13 +30863,13 @@ async function loader3({ request, context }) {
     clientId: env.CLIENT_ID,
     clientSecret: env.CLIENT_SECRET,
     STORE_ID: env.STORE_ID,
-    REDIRECT_URL: env.LOGOUT_REDIRECT_URI
+    REDIRECT_URL: env.REDIRECT_URI
   }), { access_token } = await TokenExchange({
     accessToken: token.access_token,
     clientId: env.CLIENT_ID,
     clientSecret: env.CLIENT_SECRET,
     STORE_ID: env.STORE_ID,
-    REDIRECT_URL: env.LOGOUT_REDIRECT_URI
+    REDIRECT_URL: env.REDIRECT_URI
   });
   return session.set("access_token", access_token), session.set("id_token", token.id_token), session.unset("state"), session.unset("verifier"), (0, import_cloudflare6.redirect)("/login", {
     headers: {
@@ -30877,7 +30877,7 @@ async function loader3({ request, context }) {
     }
   });
 }
-var assets_manifest_default = { entry: { module: "/build/entry.client-KORZQACA.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-RVDDVGJO.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-WTIKFQWP.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-NOM4CGE6.js", imports: void 0, hasAction: false, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: true, caseSensitive: void 0, module: "/build/routes/_index-GDXQG7E4.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/auth": { id: "routes/auth", parentId: "root", path: "auth", index: void 0, caseSensitive: void 0, module: "/build/routes/auth-3MDGLKS7.js", imports: void 0, hasAction: true, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-FQIRP3Y3.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GD74PKF2.js", imports: void 0, hasAction: true, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false } }, version: "8574ac66", hmr: { runtime: "/build/_shared/chunk-WTIKFQWP.js", timestamp: 1703603038336 }, url: "/build/manifest-8574AC66.js" };
+var assets_manifest_default = { entry: { module: "/build/entry.client-KORZQACA.js", imports: ["/build/_shared/chunk-ZWGWGGVF.js", "/build/_shared/chunk-RVDDVGJO.js", "/build/_shared/chunk-GIAAE3CH.js", "/build/_shared/chunk-WTIKFQWP.js", "/build/_shared/chunk-XU7DNSPJ.js", "/build/_shared/chunk-BOXFZXVX.js", "/build/_shared/chunk-UWV35TSL.js", "/build/_shared/chunk-PNG5AS42.js"] }, routes: { root: { id: "root", parentId: void 0, path: "", index: void 0, caseSensitive: void 0, module: "/build/root-NOM4CGE6.js", imports: void 0, hasAction: false, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/_index": { id: "routes/_index", parentId: "root", path: void 0, index: true, caseSensitive: void 0, module: "/build/routes/_index-GDXQG7E4.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/auth": { id: "routes/auth", parentId: "root", path: "auth", index: void 0, caseSensitive: void 0, module: "/build/routes/auth-3MDGLKS7.js", imports: void 0, hasAction: true, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/login": { id: "routes/login", parentId: "root", path: "login", index: void 0, caseSensitive: void 0, module: "/build/routes/login-FQIRP3Y3.js", imports: void 0, hasAction: false, hasLoader: true, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false }, "routes/logout": { id: "routes/logout", parentId: "root", path: "logout", index: void 0, caseSensitive: void 0, module: "/build/routes/logout-GD74PKF2.js", imports: void 0, hasAction: true, hasLoader: false, hasClientAction: false, hasClientLoader: false, hasErrorBoundary: false } }, version: "8574ac66", hmr: { runtime: "/build/_shared/chunk-WTIKFQWP.js", timestamp: 1703603477342 }, url: "/build/manifest-8574AC66.js" };
 var mode = "development";
 var assetsBuildDirectory = "public/build";
 var future = { v3_fetcherPersist: false, v3_relativeSplatPath: false };
@@ -31406,7 +31406,7 @@ var jsonError = async (request, env, _ctx, middlewareCtx) => {
 var middleware_miniflare3_json_error_default = jsonError;
 var wrap = void 0;
 
-// ../.wrangler/tmp/bundle-UEDyq1/middleware-insertion-facade.js
+// ../.wrangler/tmp/bundle-PiDCPY/middleware-insertion-facade.js
 var envWrappers = [wrap].filter(Boolean);
 var facade = {
   ...pages_template_worker_default,
@@ -31418,7 +31418,7 @@ var facade = {
 };
 var middleware_insertion_facade_default = facade;
 
-// ../.wrangler/tmp/bundle-UEDyq1/middleware-loader.entry.ts
+// ../.wrangler/tmp/bundle-PiDCPY/middleware-loader.entry.ts
 var __Facade_ScheduledController__ = class {
   constructor(scheduledTime, cron, noRetry) {
     this.scheduledTime = scheduledTime;
