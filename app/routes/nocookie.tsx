@@ -3,9 +3,6 @@ import {
   LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/cloudflare";
-import { getSession } from "./auth/session.server";
-
-import { useLoaderData } from "@remix-run/react";
 
 export const meta: MetaFunction = () => {
   return [
@@ -14,25 +11,11 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-interface LoaderData {
-  accesstoken: string;
-}
-
 export async function loader({ context, request }: LoaderFunctionArgs) {
-  const start = performance.now();
-  const session = await getSession(request.headers.get("Cookie"));
-  const end = performance.now();
-  console.log("session", { session });
-  console.log(`session took ${end - start} milliseconds.`);
-  return json<LoaderData>({
-    accesstoken: session.has("access_token")
-      ? session.get("access_token")!
-      : "no token",
-  });
+  return json({ accesstoken: "no token" });
 }
 
 export default function Index() {
-  const { accesstoken } = useLoaderData<typeof loader>();
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>
@@ -59,7 +42,6 @@ export default function Index() {
           <a target="_blank" href="https://remix.run/docs" rel="noreferrer">
             Remix Docs
           </a>
-          <p> {accesstoken}</p>
         </li>
       </ul>
     </div>
