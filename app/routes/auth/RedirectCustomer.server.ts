@@ -1,15 +1,19 @@
 import { redirect } from "@remix-run/cloudflare";
-import { commitSession, getSession } from "./session.server";
+
 export async function GetAuthCode({
   CLIENT_ID,
   SHOP_ID,
   request,
   REDIRECT_URL,
+  getSession,
+  commitSession,
 }: {
   CLIENT_ID: string;
   SHOP_ID: string;
   request: Request;
   REDIRECT_URL: string;
+  getSession: (cookie: string | null) => void;
+  commitSession: (session: any) => void;
 }) {
   const [session, verifier, state] = await Promise.all([
     getSession(request.headers.get("Cookie")),

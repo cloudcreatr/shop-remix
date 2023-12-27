@@ -3,7 +3,7 @@ import {
   LoaderFunctionArgs,
   redirect,
 } from "@remix-run/cloudflare";
-import { commitSession, getSession } from "./session.server";
+
 import { GetAuthCode } from "./RedirectCustomer.server";
 import { AccessToken } from "./accessToken.server";
 import { TokenExchange } from "./TokenExchange.server";
@@ -23,6 +23,8 @@ export async function action({ request, context }: ActionFunctionArgs) {
     SHOP_ID: env.STORE_ID,
     request,
     REDIRECT_URL: env.REDIRECT_URI,
+    getSession: (p) => context.getSession(p),
+    commitSession: (p) => context.commitSession(p),
   });
 }
 
@@ -31,7 +33,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
   const state = new URL(request.url).searchParams.get("state");
 
   if (!code) throw new Response("No Code", { status: 400 });
-  const session = await getSession(request.headers.get("Cookie"));
+  const session = await context.getSession(request.headers.get("Cookie"));
   if (state != session.get("state"))
     throw new Response("State does not match", { status: 400 });
   const verifier = session.get("verifier");
@@ -61,7 +63,7 @@ export async function loader({ request, context }: LoaderFunctionArgs) {
 
   return redirect("/login", {
     headers: {
-      "Set-Cookie": await commitSession(session),
+      "Set-Cookie": await context.commitSession(session),
     },
   });
 }

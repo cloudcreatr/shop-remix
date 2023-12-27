@@ -3,7 +3,6 @@ import {
   LoaderFunctionArgs,
   type MetaFunction,
 } from "@remix-run/cloudflare";
-import { getSession } from "./auth/session.server";
 
 import { useLoaderData } from "@remix-run/react";
 
@@ -20,7 +19,7 @@ interface LoaderData {
 
 export async function loader({ context, request }: LoaderFunctionArgs) {
   const start = performance.now();
-  const session = await getSession(request.headers.get("Cookie"));
+  const session = await context.getSession(request.headers.get("Cookie"));
   const end = performance.now();
   console.log("session", { session });
   console.log(`session took ${end - start} milliseconds.`);
