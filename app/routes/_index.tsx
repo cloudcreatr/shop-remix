@@ -1,4 +1,8 @@
-import { json, type MetaFunction } from "@remix-run/cloudflare";
+import {
+  json,
+  LoaderFunctionArgs,
+  type MetaFunction,
+} from "@remix-run/cloudflare";
 import { getSession } from "./auth/session.server";
 import { useLoaderData } from "@remix-run/react";
 
@@ -9,13 +13,24 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export async function loader({ context, request }) {
+interface LoaderData {
+  accesstoken: string;
+}
+
+export async function loader({ context, request }: LoaderFunctionArgs) {
+  const start = performance.now();
   const session = await getSession(request.headers.get("Cookie"));
-  return json({ accesstoken: session.get("access_token") });
+  const end = performance.now();
+  console.log(`session took ${end - start} milliseconds.`);
+  return json<LoaderData>({
+    accesstoken: session.has("access_token")
+      ? session.get("access_token")!
+      : "no token",
+  });
 }
 
 export default function Index() {
-  const { accesstoken } = useLoaderData();
+  const { accesstoken } = useLoaderData<typeof loader>();
   return (
     <div style={{ fontFamily: "system-ui, sans-serif", lineHeight: "1.8" }}>
       <h1>Welcome to Remix</h1>
