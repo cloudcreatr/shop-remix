@@ -1,7 +1,6 @@
 import { Form, useLoaderData } from "@remix-run/react";
 import type { LoaderFunctionArgs } from "@remix-run/cloudflare";
 import { json } from "@remix-run/react";
-import { getSession } from "../auth/session.server";
 
 interface env {
   CLIENT_ID: string;
@@ -10,7 +9,7 @@ interface env {
 }
 
 export async function loader({ request, context }: LoaderFunctionArgs) {
-  const session = await getSession(request.headers.get("Cookie"));
+  const session = await context.getSession(request.headers.get("Cookie"));
   return json({
     accesstoken: session.get("access_token"),
     idtoken: session.get("id_token"),
